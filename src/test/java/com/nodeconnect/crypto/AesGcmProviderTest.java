@@ -101,6 +101,6 @@ class AesGcmProviderTest {
         AesGcmProvider otherProvider = new AesGcmProvider(
                 new SecretKeySpec(otherKeyBytes, "AES"));
 
-        assertThrows(DecryptionFailedException.class, () -> provider.decrypt(envelope));
+        assertThrows(DecryptionFailedException.class, () -> otherProvider.decrypt(envelope));
     }
 }
