@@ -1,6 +1,8 @@
 package com.nodeconnect.crypto;
 
 import com.nodeconnect.core.models.MessageEnvelope;
+import com.nodeconnect.core.exceptions.HandshakeNotCompletedException;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -38,7 +40,7 @@ class HandshakeServiceTest {
     void getSecurityServiceBeforeHandshakeShouldThrow() throws Exception {
         HandshakeService handshake = new HandshakeService(new KeyManager());
 
-        assertThrows(IllegalStateException.class,
+        assertThrows(HandshakeNotCompletedException.class,
                 handshake::getSecurityService);
     }
 }

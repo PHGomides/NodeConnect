@@ -1,4 +1,5 @@
 package com.nodeconnect.crypto;
+import com.nodeconnect.core.exceptions.DecryptionFailedException;
 
 import com.nodeconnect.core.models.MessageEnvelope;
 import org.junit.jupiter.api.BeforeEach;
@@ -70,7 +71,7 @@ class AesGcmProviderTest {
                 original.mac()
         );
 
-        assertThrows(SecurityException.class, () -> provider.decrypt(tampered));
+        assertThrows(DecryptionFailedException.class, () -> provider.decrypt(tampered));
     }
 
     @Test
@@ -87,7 +88,7 @@ class AesGcmProviderTest {
                 original.mac()
         );
 
-        assertThrows(SecurityException.class, () -> provider.decrypt(tampered));
+        assertThrows(DecryptionFailedException.class, () -> provider.decrypt(tampered));
     }
 
     @Test
@@ -100,6 +101,6 @@ class AesGcmProviderTest {
         AesGcmProvider otherProvider = new AesGcmProvider(
                 new SecretKeySpec(otherKeyBytes, "AES"));
 
-        assertThrows(SecurityException.class, () -> otherProvider.decrypt(envelope));
+        assertThrows(DecryptionFailedException.class, () -> provider.decrypt(envelope));
     }
 }
