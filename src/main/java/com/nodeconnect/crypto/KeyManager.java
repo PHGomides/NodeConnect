@@ -14,7 +14,7 @@ import java.security.PrivateKey;
 
 
 public class KeyManager {
-    private static final String CURVE_NAME = "secp256k1";
+    private static final String CURVE_NAME = "secp256r1";
 
     private final KeyPair localKeyPair;
     private PublicKey peerPublicKey;
