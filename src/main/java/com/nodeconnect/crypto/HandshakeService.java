@@ -4,6 +4,8 @@ import javax.crypto.SecretKey;
 import java.security.*;
 import java.util.Base64;
 
+import com.nodeconnect.core.exceptions.HandshakeNotCompletedException;
+
 public class HandshakeService {
 
     private final KeyManager keyManager;
@@ -36,7 +38,7 @@ public class HandshakeService {
 
     public SecurityService getSecurityService() {
         if (securityService == null) {
-            throw new IllegalStateException("Handshake not completed");
+            throw new HandshakeNotCompletedException("Handshake not completed");
         }
         return securityService;
     }

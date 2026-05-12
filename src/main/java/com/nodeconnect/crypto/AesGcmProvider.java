@@ -1,6 +1,8 @@
 package com.nodeconnect.crypto;
 
 import com.nodeconnect.core.models.MessageEnvelope;
+import com.nodeconnect.core.exceptions.DecryptionFailedException;
+
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 import javax.crypto.AEADBadTagException;
@@ -59,7 +61,7 @@ public class AesGcmProvider implements SecurityService {
     }
 
     @Override
-    public String decrypt(MessageEnvelope envelope) throws SecurityException {
+    public String decrypt(MessageEnvelope envelope) throws DecryptionFailedException {
         try {
             byte[] nonce = Base64.getDecoder().decode(envelope.nonce());
             byte[] cipherText = Base64.getDecoder().decode(envelope.payload());
@@ -73,9 +75,9 @@ public class AesGcmProvider implements SecurityService {
 
             return new String(cipher.doFinal(cipherText), StandardCharsets.UTF_8);
         } catch (AEADBadTagException e) {
-            throw new SecurityException("Invalid MAC - message rejected", e);
+            throw new DecryptionFailedException("Invalid MAC - message rejected", e);
         } catch (Exception e) {
-            throw new SecurityException("Decryption failed: " + e.getMessage(), e);
+            throw new DecryptionFailedException("Decryption failed: " + e.getMessage(), e);
         }
     }
 }
