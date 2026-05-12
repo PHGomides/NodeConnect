@@ -8,6 +8,7 @@ import java.io.Serializable;
 public record MessageEnvelope(
         String version,
         String type,
+        long timestamp,
         String payload,
         String nonce,
         String mac
