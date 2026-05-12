@@ -4,6 +4,7 @@ import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.provider.BouncyCastleProvider;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 
+import javax.crypto.SecretKey;
 import java.security.GeneralSecurityException;
 import java.security.KeyPair;
 import java.security.PublicKey;
@@ -37,8 +38,10 @@ public class KeyManager {
         return localKeyPair.getPublic();
     }
 
-    public PrivateKey getLocalPrivateKey() {
-        return localKeyPair.getPrivate();
+    public SecretKey deriveSharedSecret(PublicKey peerPublicKey)
+            throws GeneralSecurityException {
+        return EcdhKeyExchange.deriveSharedSecret(
+                localKeyPair.getPrivate(), peerPublicKey);
     }
 
     public void setPeerPublicKey(PublicKey peerPublicKey) {

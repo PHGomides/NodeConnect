@@ -28,8 +28,7 @@ public class HandshakeService {
 
         keyManager.setPeerPublicKey(peerKey);
 
-        SecretKey sharedKey = EcdhKeyExchange.deriveSharedSecret(
-                keyManager.getLocalPrivateKey(),
+        SecretKey sharedKey = keyManager.deriveSharedSecret(
                 keyManager.getPeerPublicKey());
 
         this.securityService = new AesGcmProvider(sharedKey);
